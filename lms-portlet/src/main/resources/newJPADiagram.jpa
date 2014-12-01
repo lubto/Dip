@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings id="_14103447437471" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:entity class="user" minimized="true" id="_1410344756585">
+        <jpa:attributes>
+            <jpa:id name="id1" attribute-type="Long" id="_14103447692295"/>
+            <jpa:basic name="name" attribute-type="String" id="_14103447715736">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:basic>
+            <jpa:basic name="email" attribute-type="String" id="_14103447723827">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_14103447437482">
+        <plane elementRef="_14103447437471" id="_14103447437483_p">
+            <shape elementRef="_1410344756585" id="_1410344756585_gui">
+                <Bounds x="263.0" y="145.0" width="130.0" height="24.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>

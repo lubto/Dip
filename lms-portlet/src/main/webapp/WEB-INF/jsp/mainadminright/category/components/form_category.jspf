@@ -1,0 +1,87 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %> 
+
+<c:set var="ns"><portlet:namespace/></c:set>
+
+    <form:form id="fm1" modelAttribute="<%= ATTR_CATEGORY_PTO%>" action="${actionUrl}" method="post" headingCode="${heading}"  name="fm1">
+
+    <form:hidden path="id" /> 
+    <table width="100%">
+        <tr>
+            <td width="25%" style="text-align: right;"><form:label  path="name" mandatory="true" ><spring:message code="categoryPto.name"/></form:label></td>
+        <td><form:input  path="name" /></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><form:errors path="name" cssClass="error" /></td>
+        <td></td>
+        </tr>
+        <tr>  
+            <td style="text-align: right; vertical-align: top;"><form:label  path="description" ><spring:message code="description"/></form:label></td>  
+        <td><form:textarea rows="8" cols="30" path="description"/></td>
+          <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><form:errors path="description" cssClass="error" /></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: right;"><form:label  path="visible" mandatory="true" value="1" ><spring:message code="visible" /></form:label></td>  
+        <td><c:choose>
+                <c:when test="${checkbox == true}">
+                <form:checkbox  path="visible" checked="checked" class="check-box"/>
+            </c:when>
+            <c:otherwise>
+                <form:checkbox  path="visible" class="check-box"/>
+            </c:otherwise> 
+        </c:choose></td>
+        <td><form:errors path="visible" cssClass="error"/></td>
+        </tr> 
+        <tr>
+            <td style="text-align: right;"><form:label path="freeCourse" value="1" ><spring:message code="msg-free" /></form:label></td>  
+        <td><c:choose>
+                <c:when test="${checkFree == true}">
+                <form:checkbox  path="freeCourse" checked="checked" class="check-box"/>
+            </c:when>
+            <c:otherwise>
+                <form:checkbox  path="freeCourse" class="check-box"/>
+            </c:otherwise> 
+        </c:choose></td>
+        <td><form:errors path="freeCourse" cssClass="error" /></td>
+        </tr> 
+    </table> 
+    <br/><br/>
+    <button class="btnl" onclick="window.location = '${backUrl}';
+            return false;"><spring:message code="common-btn-cancel" /></button>
+    <spring:message code="common-btn-save" var="submitText" />
+    <input class="btnl" type="submit" value="${submitText}" /> 
+
+</form:form> 
+<style type="text/css">
+    label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+</style> 
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#fm1").validate({
+            rules: {
+                  name: {
+                            required: true
+                        },
+                description: {
+                    required: true,
+                    minlength: 5
+                }
+
+            }, messages: {
+                name: '<spring:message code="NotEmpty" javaScriptEscape="true" />',
+                description: {
+                    required: '<spring:message code="NotEmpty" javaScriptEscape="true" />',
+                    minlength: '<spring:message code="Min" arguments="${5}" javaScriptEscape="true" />'
+                }
+            }
+        });
+    });
+</script> 

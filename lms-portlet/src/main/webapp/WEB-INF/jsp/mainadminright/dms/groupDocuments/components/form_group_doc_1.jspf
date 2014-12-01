@@ -1,0 +1,81 @@
+<%@page import="com.liferay.portal.kernel.util.UnicodeFormatter"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %> 
+<c:set var="ns"><portlet:namespace/></c:set>
+
+    <form:form id="fm" modelAttribute="<%= ATTR_GROUP_DOC_PTO%>" action="${actionUrl}" method="post" headingCode="${heading}"  name="fm" onsubmit="< portlet:namespace / > extractCodeFromEditor()">
+
+    <form:hidden path="id" />  
+
+    <form:label  path="name" mandatory="true" ><spring:message code="groupDocPto.name"/></form:label>
+    <form:input  path="name" /> 
+    <form:errors path="name" cssClass="error" /> 
+    <%--
+        <form:label  path="descritpion"><spring:message code="descritpion"/></form:label>
+        <form:input  path="descritpion" /> 
+       <form:errors path="descritpion" cssClass="error" /> --%>
+    <form:label  path="description" mandatory="true" ><spring:message code="description"/></form:label>
+    <liferay-ui:input-editor/> 
+    <input name="<portlet:namespace />htmlCodeFromEditorPlacedHere" type="hidden" value="" id="edi"/>
+    <%--
+        <form:label  path="studyTime" ><spring:message code="studyTime"/></form:label>
+        <form:input path="studyTime" mandatory="true" />
+        <form:errors path="studyTime" cssClass="error" /> --%>
+
+    <form:label  path="visible" mandatory="true" value="1" ><spring:message code="msg-visible" /></form:label>
+        <c:choose>
+            <c:when test="${checkbox == true}">
+            <form:checkbox  path="visible" checked="checked" />
+        </c:when>
+        <c:otherwise>
+            <form:checkbox  path="visible" />
+        </c:otherwise> 
+    </c:choose>   
+    <form:errors path="visible" cssClass="error" />
+    <br/><br/>
+    <spring:message code="common-btn-save" var="submitText"/>
+    <input class="btnl"  type="submit" value="${submitText}" onclick="<portlet:namespace />extractCodeFromEditor()"  /> 
+    <button class="btnl"  onclick="window.location = '${backUrl}';
+                        return false;"><spring:message code="common-btn-cancel" /></button> 
+</form:form>
+
+<style type="text/css">
+    label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+</style> 
+
+<script type="text/javascript">
+            $(document).ready(function() {
+    $("#fm").validate({
+    rules: {
+    name: {
+    required: true,
+            minlength: 5
+    }
+
+    }
+    });
+    });</script>  
+
+<script type="text/javascript">
+    <%
+        //String content = request.getAttribute("content");
+        String con = (String) request.getAttribute(ATTR_FOR_EDITOR);
+        if (con == null) {
+            con = "..";
+        }
+
+    %>
+    function <portlet:namespace />initEditor() {
+    return "<%= UnicodeFormatter.toString(con)%>";
+    }
+
+    function <portlet:namespace />extractCodeFromEditor() {
+    //var x = document.<portlet:namespace />fm.<portlet:namespace />htmlCodeFromEditorPlacedHere.value=window.<portlet:namespace />editor.getHTML();
+    var num = (document.getElementById('edi').value = window.<portlet:namespace />editor.getHTML());
+            var x = window.<portlet:namespace />editor.getHTML();
+            //alert(x);  
+            //alert(num);
+    }
+</script>
+
+

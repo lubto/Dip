@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
+    <portlet>
+        <portlet-name>MainCardLeftPortlet</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/spring-context/portlet/main-card-left-portlet.xml</value>
+        </init-param>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <supported-locale>cs</supported-locale>
+        <resource-bundle>content.main-card-left-portlet</resource-bundle>
+        <supported-publishing-event >
+            <qname xmlns:x='http://liferay.com'>x:basketinfo</qname>
+        </supported-publishing-event>
+    </portlet>
+    <portlet>
+        <portlet-name>MainCardRightPortlet</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/spring-context/portlet/main-card-right-portlet.xml</value>
+        </init-param>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <supported-locale>cs</supported-locale>
+        <resource-bundle>content.main-card-right-portlet</resource-bundle>
+        
+        <supported-processing-event >
+            <qname xmlns:x='http://liferay.com'>x:basketinfo</qname>
+        </supported-processing-event>
+    </portlet>
+    <portlet>
+        <portlet-name>MainAdminLeftPortlet</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/spring-context/portlet/main-admin-left-portlet.xml</value>
+        </init-param>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <supported-locale>cs</supported-locale>
+        <resource-bundle>content.main-admin-left-portlet</resource-bundle>
+        <supported-publishing-event >
+            <qname xmlns:x='http://liferay.com'>x:admininfo</qname>
+        </supported-publishing-event>
+    </portlet>
+    <portlet>
+        <portlet-name>MainAdminRightPortlet</portlet-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/spring-context/portlet/main-admin-right-portlet.xml</value>
+        </init-param>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <supported-locale>cs</supported-locale>
+        <resource-bundle>content.main-admin-right-portlet</resource-bundle>
+        <supported-processing-event >
+            <qname xmlns:x='http://liferay.com'>x:admininfo</qname>
+        </supported-processing-event>
+    </portlet>
+    
+    <event-definition >
+        <qname xmlns:x='http://liferay.com'>x:basketinfo</qname>
+        <value-type>java.lang.String</value-type>
+    </event-definition>
+    <event-definition >
+        <qname xmlns:x='http://liferay.com'>x:admininfo</qname>
+        <value-type>java.lang.String</value-type>
+    </event-definition>
+</portlet-app>

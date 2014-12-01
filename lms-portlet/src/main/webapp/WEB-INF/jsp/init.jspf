@@ -1,0 +1,33 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet_2_0" %>
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<%@taglib prefix="liferay-ui" uri="http://liferay.com/tld/ui"%>
+<%@taglib prefix="liferay-theme" uri="http://liferay.com/tld/theme"%>
+
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+
+<portlet:defineObjects />
+<liferay-theme:defineObjects />
+
+<fmt:setLocale value="<%=locale%>" />
+<fmt:setTimeZone value="<%=timeZone%>" />
+
+<c:set var="ns"><portlet:namespace/></c:set>
+<c:set var="contextPath"><%=request.getContextPath()%></c:set>
+<c:set var="imagePath"><%=themeDisplay.getPathImage()%></c:set>
+<c:set var="errorClass" value="portlet-msg-error" />
+ 
+<%--
+<script type="text/javascript" language="JavaScript">
+    /* <![CDATA[ */
+    /* ]]> */
+</script>
+--%>

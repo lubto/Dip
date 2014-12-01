@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+    <!--
+    This loads settings from /database-config/database-settings.properties file
+    This might be overridden in /WEB-INF/database-config/database-settings-ext.properties file which is
+    accessible on filesystem     -->
+
+     
+    <bean id="propertyPlaceholderConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:/database-config/database-settings.properties</value>
+                <value>/WEB-INF/database-config/database-settings-ext.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+    </bean>
+    <!-- JNDI -->
+    <!--jee:jndi-lookup id="dataSource" jndi-name="${db.jndi.name}" cache="true" expected-type="javax.sql.DataSource" /-->
+
+    <!-- Liferay Database
+       <bean id="dataSource" class="com.liferay.portal.kernel.util.InfrastructureUtil" factory-method="getDataSource"/>
+    -->
+    <!-- Custom connection -->
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/lms"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="lubomir"/> 
+    </bean>
+
+</beans>

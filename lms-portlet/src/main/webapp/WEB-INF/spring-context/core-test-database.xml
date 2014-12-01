@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="propertyPlaceholderConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:test-database-settings.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${db.jdbc.driverClassName}"/>
+        <property name="url" value="${db.jdbc.url}"/>
+        <property name="username" value="${db.jdbc.username}"/>
+        <property name="password" value="${db.jdbc.password}"/>
+    </bean>
+
+ <!--  <bean id="hsqlSchemaCreator" class="eu.ibacz.commons.test.db.HSQLSchemaCreator">
+        <constructor-arg name="schemaName" value="IBAPACKAGE"/>
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean> -->
+
+<bean id="hsqlSchemaCreator" class="eu.lms.portlet.util.HsqlDbCreator">
+    <property name="dataSource" ref="dataSource" />
+        <property name="schema" value="jmusic" />  
+   <!-- <property name="dataSource" ref="dataSource" />
+    <property name="databasePopulator">
+        <bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+            <property name="continueOnError" value="true" />
+            <property name="scripts">
+                <list>
+                    <value>file:src/test/resources/sql/create-schema.sql</value>
+                </list>
+            </property>
+        </bean>
+    </property> -->
+</bean> 
+
+    <!--Override entityManagerFactory from context to depend on hsqlSchemaCreator -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          depends-on="hsqlSchemaCreator">
+
+        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceProvider" ref="hibernatePersistence"/>
+        <property name="jpaProperties" ref="jpaProperties" />
+        <property name="packagesToScan" value="eu.lms.core.entity"/>
+    </bean>
+
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg index="0" ref="dataSource"/>
+    </bean>
+    
+  
+
+</beans>

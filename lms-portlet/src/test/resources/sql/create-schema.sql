@@ -1,0 +1,12 @@
+ CREATE TABLE PUBLIC.TEST_TABLE
+(id INTEGER NOT NULL,
+name CHAR(25) NOT NULL,
+description VARCHAR(25) NOT NULL,
+numberCourses INTEGER, 
+visible BOOLEAN,
+freeCourse BOOLEAN, 
+
+PRIMARY KEY (id));
+ 
+
+ 

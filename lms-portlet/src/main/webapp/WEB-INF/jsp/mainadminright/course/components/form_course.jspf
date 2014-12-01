@@ -1,0 +1,153 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+
+<c:set var="ns"><portlet:namespace/></c:set>
+
+    <form:form id="fm1" modelAttribute="<%= ATTR_COURSE_PTO%>" action="${actionUrl}" method="post" headingCode="${heading}"  name="fm1">
+
+    <form:hidden path="id" /> 
+    <table width="100%"> 
+        <tr>
+            <td width="35%" style="text-align: right;"><form:label  path="name" mandatory="true" ><spring:message code="coursePto.name"/></form:label></td>
+        <td><form:input  path="name" /></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><form:errors path="name" cssClass="error" /></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: right;"><form:label  path="shortName" mandatory="true" ><spring:message code="shortName"/></form:label></td>
+        <td><form:input  path="shortName" /></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><form:errors path="shortName" cssClass="error" /></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: right; vertical-align: top;"><form:label  path="description" ><spring:message code="description"/></form:label></td>
+        <td><form:textarea rows="8" cols="30" path="description"/></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><form:errors path="description" cssClass="error" /></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: right;"><form:label  path="category" mandatory="true" ><spring:message code="category"/></form:label></td>
+        <td><form:select  path="category">  
+            <c:forEach items="${categoryPto}" var="item">
+                <form:option value="${item.id}" label="${item.name}" />
+            </c:forEach>
+        </form:select></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><p hidden="true">s</p></p></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: right;"><form:label  path="visible" mandatory="true" value="1" ><spring:message code="visible" /></form:label></td>
+        <td><c:choose>
+                <c:when test="${checkbox == true}">
+                <form:checkbox  path="visible" checked="checked" class="check-box" />
+            </c:when>
+            <c:otherwise>
+                <form:checkbox  path="visible" class="check-box" />
+            </c:otherwise> 
+        </c:choose></td>
+        <td><form:errors path="visible" cssClass="error" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td  style="text-align: right;"><form:label  path="visibleLessons" value="1" ><spring:message code="visible-lessons" /></form:label></td>
+        <td><c:choose>
+                <c:when test="${checkboxL == true}">
+                <form:checkbox  path="visibleLessons" checked="checked" class="check-box" />
+            </c:when>
+            <c:otherwise>
+                <form:checkbox  path="visibleLessons" class="check-box" />
+            </c:otherwise> 
+        </c:choose>&nbsp;&nbsp;<spring:message code="settings-lesson" var="var1"/><liferay-ui:icon-help message="${var1}"/></td>
+        <td> </td>
+        </tr>
+        <tr>
+            <td style="text-align: right;"><form:label  path="visibleQuestions" value="1" ><spring:message code="visible-questions" /></form:label></td>
+        <td><c:choose>
+                <c:when test="${checkboxQ == true}">
+                <form:checkbox  path="visibleQuestions" checked="checked" class="check-box" />
+            </c:when>
+            <c:otherwise>
+                <form:checkbox  path="visibleQuestions" class="check-box" />
+            </c:otherwise> 
+        </c:choose>&nbsp;&nbsp;<spring:message code="settings-test" var="var2"/><liferay-ui:icon-help message="${var2}"/>
+        </td>
+        <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: right;"><form:label  path="visibleDocuments" value="1" ><spring:message code="visible-documents" /></form:label></td>
+        <td><c:choose>
+                <c:when test="${checkboxD == true}">
+                <form:checkbox  path="visibleDocuments" checked="checked" class="check-box" />
+            </c:when>
+            <c:otherwise>
+                <form:checkbox  path="visibleDocuments" class="check-box" />
+            </c:otherwise> 
+        </c:choose>&nbsp;&nbsp;<spring:message code="settings-document" var="var3"/><liferay-ui:icon-help message="${var3}"/></td>
+        <td></td>
+        </tr> 
+    </table>
+    <br/><br/> 
+    <button class="btnl"  onclick="window.location = '${backUrl}';
+            return false;"><spring:message code="common-btn-cancel" /></button>
+    <spring:message code="common-btn-save" var="submitText"/> 
+     <c:if test="${isNull == false}" >
+    <input class="btnl"  type="submit" value="${submitText}" /> 
+     </c:if>
+</form:form> 
+
+<style type="text/css">
+    label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+</style> 
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#fm1").validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                description: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 499
+                },
+                shortName: {
+                    required: true,
+                    maxlength: 10
+                }
+
+            }, messages: {
+                name: '<spring:message code="NotEmpty" javaScriptEscape="true" />',
+                description: {
+                    required: '<spring:message code="NotEmpty" javaScriptEscape="true" />',
+                    minlength: '<spring:message code="Min" arguments="${5}" javaScriptEscape="true" />',
+                    maxlength: '<spring:message code="Max" arguments="${499}" javaScriptEscape="true" />'
+                },
+                shortName: {
+                    required: '<spring:message code="NotEmpty" javaScriptEscape="true" />',
+                    maxlength: '<spring:message code="Max" arguments="${5}" javaScriptEscape="true" />'
+                }
+            }
+        });
+    });
+</script> 
